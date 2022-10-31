@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
-            Text('Quelle est ton humeur aujourd\'hui ? '),
+            Text('Clique sur la méteo qui correspond à ton humeur d\'aujourd\'hui ? '),
            ElevatedButton_HomePage(urlImage: 'lib/IMG/sun.png'),
            ElevatedButton_HomePage(urlImage: 'lib/IMG/cloudy.png'),
            ElevatedButton_HomePage(urlImage: 'lib/IMG/rainning.png'),
