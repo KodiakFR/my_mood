@@ -28,10 +28,33 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Page d\'accueil'),
-
-          )
+            leading: const Icon(Icons.home),
+            title: const Text('Page d\'accueil'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+           ListTile(
+            leading: const Icon(Icons.auto_graph_sharp),
+            title: const Text('Mon récapitulatif'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+           ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Options'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+           ListTile(
+            leading: const Icon(Icons.logout_sharp),
+            title: const Text('Déconnexion'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
         ],
       ),
     );
