@@ -13,7 +13,7 @@ class MoodFormPage extends StatelessWidget {
       ),
       body: Center(child: Column(
         children: [
-          
+        
         ],
       )),
     );

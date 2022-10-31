@@ -13,7 +13,9 @@ class ElevatedButton_HomePage extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.black.withOpacity(0))
               ,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/MoodForm');
+              },
               child: Image.asset(
                 urlImage,
                 height: 150,
