@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_mood/screens/homepage/home_page.dart';
 import 'package:my_mood/screens/moodFormPage/mood_form_page.dart';
 
+import 'screens/moodFormPage/wiriting_form_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-          "/MoodForm":(context) => const MoodFormPage()
+          "/MoodForm":(context) => MoodFormPage(),
+          "/WriteForm":(context) => WritingFormPage(),
       },
       title: 'My Mood',
       theme: ThemeData(
