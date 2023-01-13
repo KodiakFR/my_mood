@@ -50,6 +50,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
                 })),
         ),
           ),
+          
           ElevatedButton(onPressed: () {
             Navigator.pushReplacementNamed(context, '/WriteForm');
           }, child: Text("Ok")),

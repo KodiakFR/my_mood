@@ -16,7 +16,6 @@ class WritingFormPage extends StatelessWidget {
         ),
         TextFormField(
           decoration:  const InputDecoration(
-            
             border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
