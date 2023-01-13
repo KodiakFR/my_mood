@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_mood/screens/models/answer_entity.dart';
+import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 
 class MoodFormPage extends StatefulWidget {

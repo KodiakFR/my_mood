@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../models/answer_entity.dart';
+import '../../models/answer_entity.dart';
 
 class WritingFormPage extends StatelessWidget {
   WritingFormPage({super.key});
