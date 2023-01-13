@@ -15,11 +15,14 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            Text('Clique sur la méteo qui correspond à ton humeur d\'aujourd\'hui ? '),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/sun.png'),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/cloudy.png'),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/rainning.png'),
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/50),
+              child: const Text('Clique sur la méteo qui correspond à ton humeur d\'aujourd\'hui ? ',textAlign: TextAlign.center ,),
+            ),
+           const ElevatedButton_HomePage(urlImage: 'lib/IMG/sun.png'),
+           const ElevatedButton_HomePage(urlImage: 'lib/IMG/cloudy.png'),
+           const ElevatedButton_HomePage(urlImage: 'lib/IMG/rainning.png'),
           ],
         ),
       ),
