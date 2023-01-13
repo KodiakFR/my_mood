@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_mood/screens/models/answer_entity.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 
 class MoodFormPage extends StatefulWidget {
@@ -9,12 +10,8 @@ class MoodFormPage extends StatefulWidget {
 }
 
 class _MoodFormPageState extends State<MoodFormPage> {
-  // bool _checkedvalue = false;
-  // bool _checkedvalue2 = false;
 
-  List<bool> _checkedvalue = [false, false, false, false, false];
-
-  List<String> answers = ["Travail", "Amour", "Nouvelle", "Voyage", "autres"];
+  AnswerEntity answersConsummer = AnswerEntity();
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +34,15 @@ class _MoodFormPageState extends State<MoodFormPage> {
               color: Colors.black12,
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: answers.length,
+                  itemCount: answersConsummer.moodTypes.length,
                   itemBuilder: ((context, index) {
                   return CheckboxListTile( 
-                    title: Text(answers[index],),
-                    value: _checkedvalue[index], 
+                    title: Text(answersConsummer.moodTypes[index],),
+                    value: answersConsummer.boolAnswers[index], 
                     onChanged: (value) {
                       setState(() {
-                        _checkedvalue[index] = value!;    
+                        answersConsummer.boolAnswers[index] = value!;  
+                        print(answersConsummer.boolAnswers[index])  ;
                       });
                     }, controlAffinity: ListTileControlAffinity.leading,);
                 })),
