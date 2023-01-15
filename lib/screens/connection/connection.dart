@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_mood/models/user_entity.dart';
+import 'package:my_mood/screens/register/register.dart';
 
 class Connection extends StatelessWidget {
   Connection({super.key});
@@ -12,7 +13,6 @@ class Connection extends StatelessWidget {
   String? _email;
   String? _password;
   //Services auth
-  
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +63,20 @@ class Connection extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        UserEntity(email: _email,password: _password);
-
+                        UserEntity(email: _email, password: _password);
                       }
                     },
                     child: const Text("Sign in")),
-                const Text('New on My Mood? Create an account')
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('New on My Mood? '),
+                    InkWell(
+                      child: const Text('Create an account', style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,)),
+                      onTap: () => Navigator.pushNamed(context, '/Register')
+                    ),
+                  ],
+                )
               ],
             ),
           ),
