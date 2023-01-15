@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ElevatedButton_HomePage extends StatelessWidget {
+class ElevatedButtonHomePage extends StatelessWidget {
   final String urlImage;
-  const ElevatedButton_HomePage({
+  const ElevatedButtonHomePage({
     required this.urlImage,
     super.key});
 

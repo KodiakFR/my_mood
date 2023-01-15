@@ -3,7 +3,7 @@ import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 
 class MoodFormPage extends StatefulWidget {
-  MoodFormPage({super.key});
+ const MoodFormPage({super.key});
 
   @override
   State<MoodFormPage> createState() => _MoodFormPageState();
@@ -26,7 +26,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top : sizeHeight/25),
-            child: Text("Quelle est la principale cause de ton humeur ?"),   
+            child: const Text("Quelle est la principale cause de ton humeur ?"),   
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal : sizeHeight/35, vertical: sizeHeight/15),
@@ -51,7 +51,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
           
           ElevatedButton(onPressed: () {
             Navigator.pushReplacementNamed(context, '/WriteForm');
-          }, child: Text("Ok")),
+          }, child: const Text("Ok")),
         ],
       )),
     );

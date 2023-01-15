@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_mood/screens/homepage/elevatedButton_homepage.dart';
+import 'package:my_mood/screens/homepage/elevated_button_homepage.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,9 +17,9 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text('Clique sur la méteo qui correspond à ton humeur d\'aujourd\'hui ? '),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/sun.png'),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/cloudy.png'),
-           ElevatedButton_HomePage(urlImage: 'lib/IMG/rainning.png'),
+           ElevatedButtonHomePage(urlImage: 'lib/IMG/sun.png'),
+           ElevatedButtonHomePage(urlImage: 'lib/IMG/cloudy.png'),
+           ElevatedButtonHomePage(urlImage: 'lib/IMG/rainning.png'),
           ],
         ),
       ),

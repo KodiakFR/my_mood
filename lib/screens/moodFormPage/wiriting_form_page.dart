@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../models/answer_entity.dart';
 
@@ -21,8 +19,8 @@ class WritingFormPage extends StatelessWidget {
     return Scaffold(
        appBar: AppBar(), 
       body: Center(child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 50),
           child: Text("Ecris quelques lignes sur ton humeur d'aujourd'hui"),
         ),
         TextFormField(
@@ -36,7 +34,7 @@ class WritingFormPage extends StatelessWidget {
       ElevatedButton(onPressed: () {
           answersConsummer.writingMood = answerMoodController.text;
             // Add nextpath
-          }, child: Text("Ok")),
+          }, child: const Text("Ok")),
       ],),),
     );
   }
