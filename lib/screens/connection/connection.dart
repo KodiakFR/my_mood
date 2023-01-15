@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:my_mood/models/user_entity.dart';
 
 class Connection extends StatelessWidget {
   Connection({super.key});
 
   // Key for the form
   final _formKey = GlobalKey<FormState>();
+  //Regex for the email
   final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
+  //Variable for the form
+  String? _email;
+  String? _password;
+  //Services auth
+  
 
   @override
   Widget build(BuildContext context) {
@@ -30,37 +37,37 @@ class Connection extends StatelessWidget {
                         !emailRegex.hasMatch(value)) {
                       return 'Please enter a correct email';
                     }
+                    _email = value;
                     return null;
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    hintText: 'Enter your email',
-                    labelText: 'Email'
-                  ),
+                      hintText: 'Enter your email', labelText: 'Email'),
                 ),
                 // Field of the password
                 TextFormField(
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.length < 6) {
+                    if (value == null || value.isEmpty || value.length < 6) {
                       return 'Please enter a correct password';
                     }
+                    _password = value;
                     return null;
                   },
+                  obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'Enter your password',
-                    labelText: 'Password'
+                    labelText: 'Password',
                   ),
                 ),
                 // Validation Form
-                ElevatedButton(onPressed: (){
-                  if(_formKey.currentState!.validate()){
-                    print('je me connecte');
-                    
-                  }
-                }, 
-                child: const Text("Sign in")),
+                ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        UserEntity(email: _email,password: _password);
+
+                      }
+                    },
+                    child: const Text("Sign in")),
                 const Text('New on My Mood? Create an account')
               ],
             ),
