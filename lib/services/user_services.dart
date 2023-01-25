@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_mood/models/user_entity.dart';
 
 class UserServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-/**
- * Connexion d'un user avec un mail et mot de passe
- */
+
+
+///Connexion d'un user avec un mail et mot de passe
   Future<dynamic> auth(UserEntity user) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -20,9 +17,7 @@ class UserServices {
     }
   }
 
-/**
- * Connexion d'un user avec un compte gmail
- */
+///Connexion d'un user avec un compte gmail
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -58,7 +53,6 @@ class UserServices {
         return msgError;
       }
     } catch (e) {
-      print(e);
       return null;
     }
   }

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_mood/models/user_entity.dart';
 import 'package:my_mood/viewModels/connection_vm.dart';
-
-class Connection extends StatelessWidget {
-  Connection({super.key});
 
   // Key for the form
   final _formKey = GlobalKey<FormState>();
@@ -14,6 +10,9 @@ class Connection extends StatelessWidget {
   String? _email;
   String? _password;
   final ConnectionVM _connectionVM = ConnectionVM();
+
+class Connection extends StatelessWidget {
+const Connection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +87,6 @@ class Connection extends StatelessWidget {
                             ),
                           );
                         }
-                        ;
                       }
                     },
                     child: const Text("Sign in")),

@@ -81,15 +81,15 @@ class MyApp extends StatelessWidget {
       routes: {
         "/MoodForm": (context) => const MoodFormPage(),
         "/WriteForm": (context) => WritingFormPage(),
-        "/Register": (context) => Register(),
-        "/Connection": (context) => Connection(),
+        "/Register": (context) => const Register(),
+        "/Connection": (context) => const Connection(),
         "/Home": (context) => const HomePage(),
       },
       title: 'My Mood',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Connection(),
+      home: const Connection(),
     );
   }
 }
