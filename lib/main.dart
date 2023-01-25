@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_mood/screens/connection/connection.dart';
+import 'package:my_mood/screens/homepage/home_page.dart';
 import 'package:my_mood/screens/moodFormPage/mood_form_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_mood/screens/register/register.dart';
@@ -80,13 +81,15 @@ class MyApp extends StatelessWidget {
       routes: {
         "/MoodForm": (context) => const MoodFormPage(),
         "/WriteForm": (context) => WritingFormPage(),
-        "/Register" :(context) => const Register(),
+        "/Register": (context) => Register(),
+        "/Connection": (context) => Connection(),
+        "/Home": (context) => const HomePage(),
       },
       title: 'My Mood',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  Connection(),
+      home: Connection(),
     );
   }
 }
