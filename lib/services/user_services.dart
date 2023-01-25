@@ -5,8 +5,13 @@ import 'package:my_mood/models/user_entity.dart';
 class UserServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Stream<UserEntity> get userConnected {
+    return _auth
+        .authStateChanges()
+        .asyncMap((user) => UserEntity(email: user!.email));
+  }
 
-///Connexion d'un user avec un mail et mot de passe
+  ///Connexion d'un user avec un mail et mot de passe
   Future<dynamic> auth(UserEntity user) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -17,7 +22,7 @@ class UserServices {
     }
   }
 
-///Connexion d'un user avec un compte gmail
+  ///Connexion d'un user avec un compte gmail
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -55,5 +60,10 @@ class UserServices {
     } catch (e) {
       return null;
     }
+  }
+
+  ///Déconnection
+  Future disconnect() async {
+    await _auth.signOut();
   }
 }
