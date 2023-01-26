@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_mood/models/answer_entity.dart';
+import 'package:my_mood/services/providers/answer_provider.dart';
+import 'package:provider/provider.dart';
 
 class ElevatedButtonHomePage extends StatelessWidget {
   final String urlImage;
-  const ElevatedButtonHomePage({
-    required this.urlImage,
+  final String weatherF;
+  AnswerEntity answerEntity = AnswerEntity();
+  ElevatedButtonHomePage({
+    required this.urlImage, required this.weatherF,
     super.key});
 
   @override
@@ -15,6 +20,9 @@ class ElevatedButtonHomePage extends StatelessWidget {
               ,
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/MoodForm');
+                //answerEntity.weather = weatherF;
+                
+                context.read<AnswerProvider>().addWeatherMood(weatherF);
               },
               child: Image.asset(
                 urlImage,

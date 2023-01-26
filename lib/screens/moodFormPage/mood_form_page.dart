@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
+import 'package:my_mood/services/providers/answer_provider.dart';
+import 'package:provider/provider.dart';
 
 class MoodFormPage extends StatefulWidget {
  const MoodFormPage({super.key});
@@ -41,8 +43,14 @@ class _MoodFormPageState extends State<MoodFormPage> {
                     value: answersConsummer.boolAnswers[index], 
                     onChanged: (value) {
                       setState(() {
-                        answersConsummer.boolAnswers[index] = value!;  
-                        print(answersConsummer.boolAnswers[index])  ;
+                        answersConsummer.boolAnswers[index] = value!;
+                        if(answersConsummer.boolAnswers[index] == true) {
+                          context.read<AnswerProvider>().addMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                        } 
+                        if(answersConsummer.boolAnswers[index] == false)  {
+                          context.read<AnswerProvider>().deleteMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                        }
+                        
                       });
                     }, controlAffinity: ListTileControlAffinity.leading,);
                 })),
@@ -50,6 +58,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
           ),
           
           ElevatedButton(onPressed: () {
+            
             Navigator.pushReplacementNamed(context, '/WriteForm');
           }, child: const Text("Ok")),
         ],
