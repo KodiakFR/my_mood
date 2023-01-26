@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,9 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_mood/screens/connection/connection.dart';
+import 'package:my_mood/screens/homepage/home_page.dart';
 import 'package:my_mood/screens/moodFormPage/mood_form_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_mood/screens/register/register.dart';
+import 'package:my_mood/services/user_services.dart';
 import 'firebase_options.dart';
 
 import 'screens/moodFormPage/wiriting_form_page.dart';
@@ -58,6 +59,8 @@ void main() async {
   ));
 }
 
+final UserServices _userService = UserServices();
+
 class MyApp extends StatelessWidget {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firebaseFirestore;
@@ -75,18 +78,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        "/MoodForm": (context) => const MoodFormPage(),
-        "/WriteForm": (context) => WritingFormPage(),
-        "/Register" :(context) => const Register(),
-      },
-      title: 'My Mood',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:  Connection(),
-    );
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          "/MoodForm": (context) => const MoodFormPage(),
+          "/WriteForm": (context) => WritingFormPage(),
+          "/Register": (context) => const Register(),
+          "/Connection": (context) => const Connection(),
+          "/Home": (context) => const HomePage(),
+        },
+        title: 'My Mood',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: StreamBuilder(
+          stream: _userService.userConnected,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const HomePage();
+              }
+              return const Connection();
+            }
+            return const Scaffold(
+                body: SafeArea(
+                    child: Center(
+              child: Text('Loadiing...'),
+            )));
+          },
+        ));
   }
 }
