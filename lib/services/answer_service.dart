@@ -10,21 +10,26 @@ class AnswerService {
               await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).get();       
     answerEntity.dateTime = DateTime.now();
     try {
-        if(result.data()?["date"] == null) {
-                await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).set({
-          'weatherMood' : FieldValue.arrayUnion([answerEntity.weather.toString()]),
-          'moodType' :  FieldValue.arrayUnion([answerEntity.moodTypeChoose.toString()]),
-          'writingMood' : FieldValue.arrayUnion([answerEntity.writingMood.toString()]),
-          'date' : FieldValue.arrayUnion([answerEntity.dateTime.toString()])
+        if(result.data()?["answer"] == null) {
+                await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).set({"answer" : 
+                FieldValue.arrayUnion(
+                  [{
+                    'weatherMood' : answerEntity.weather,
+                    'moodType' :  answerEntity.moodTypeChoose,
+                    'writingMood' : answerEntity.writingMood,
+                    'date' : answerEntity.dateTime
+                  }])
         });
         } else {
           print("dans le else");
-                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({
-          'weatherMood' : FieldValue.arrayUnion([answerEntity.weather.toString()]),
-          'moodType' :  FieldValue.arrayUnion([answerEntity.moodTypeChoose.toString()]),
-          'writingMood' : FieldValue.arrayUnion([answerEntity.writingMood.toString()]),
-          'date' : FieldValue.arrayUnion([answerEntity.dateTime.toString()])
-        });
+                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({ "answer" : FieldValue.arrayUnion(
+                      [{
+          'weatherMood' : answerEntity.weather,
+          'moodType' :  answerEntity.moodTypeChoose,
+          'writingMood' : answerEntity.writingMood,
+          'date' : answerEntity.dateTime
+        }]
+                    )});
         }
     
     } catch(e) {
