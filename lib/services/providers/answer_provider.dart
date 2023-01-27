@@ -7,8 +7,6 @@ final AnswerEntity _answerEntityProvider = AnswerEntity();
 AnswerEntity get myAnswerEntityProvider => _answerEntityProvider;
 
 
-
-
 // Adding section
 void addWeatherMood(String value) {
   _answerEntityProvider.weather = value;
@@ -31,6 +29,14 @@ void addMoodTypeChoosen(String value) {
 }
 
 
+void addWritingMood(String value) {
+  _answerEntityProvider.writingMood = value;
+  notifyListeners();
+
+  print("ajout du string :" + _answerEntityProvider.writingMood.toString());
+}
+/////////////////////////////
+
 
 // Deleting section
 void deleteMoodTypeChoosen(String value) {
@@ -39,7 +45,7 @@ void deleteMoodTypeChoosen(String value) {
   print("removing mood" + value);
   print(_answerEntityProvider.moodTypeChoose.toString());
 }
-
+///////////////////////
 
 
 

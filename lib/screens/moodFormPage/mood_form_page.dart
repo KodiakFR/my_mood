@@ -4,6 +4,8 @@ import 'package:my_mood/screens/widget/navbar.dart';
 import 'package:my_mood/services/providers/answer_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../customs/app_bar_custom.dart';
+
 class MoodFormPage extends StatefulWidget {
  const MoodFormPage({super.key});
 
@@ -20,9 +22,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
     var sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: const NavBar(),
-      appBar: AppBar(
-        title: const Text('My Mood'),
-      ),
+      appBar: AppBarCustom().backgroundOfAppbar("My mood "),
       body: Center(
         child: Column(
         children: <Widget>[

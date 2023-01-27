@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
           },
           title: 'My Mood',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.blue,             
           ),
           home: StreamBuilder(
             stream: _userService.userConnected,

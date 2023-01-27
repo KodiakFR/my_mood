@@ -13,6 +13,7 @@ class ElevatedButtonHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sizeHeight = MediaQuery.of(context).size.height;
     return  ElevatedButton(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
@@ -26,8 +27,8 @@ class ElevatedButtonHomePage extends StatelessWidget {
               },
               child: Image.asset(
                 urlImage,
-                height: 150,
-                width: 150,
+                height: sizeHeight/7,
+                //width: 150,
               ),
             );
   }

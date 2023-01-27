@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_mood/services/providers/answer_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/answer_entity.dart';
+import '../customs/app_bar_custom.dart';
 
 class WritingFormPage extends StatelessWidget {
   WritingFormPage({super.key});
@@ -17,7 +20,7 @@ class WritingFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(), 
+       appBar: AppBarCustom().backgroundOfAppbar("My mood test"),
       body: Center(child: Column(children: [
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 50),
@@ -32,7 +35,7 @@ class WritingFormPage extends StatelessWidget {
           ),
         ),  
       ElevatedButton(onPressed: () {
-          answersConsummer.writingMood = answerMoodController.text;
+          context.read<AnswerProvider>().addWritingMood(answerMoodController.text);
             // Add nextpath
           }, child: const Text("Ok")),
       ],),),

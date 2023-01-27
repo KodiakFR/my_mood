@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_mood/screens/customs/app_bar_custom.dart';
 import 'package:my_mood/screens/homepage/elevated_button_homepage.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 
@@ -9,9 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavBar(),
-      appBar: AppBar(
-        title: const Text("My Mood"),
-      ),
+      appBar: AppBarCustom().backgroundOfAppbar("My mood "),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
