@@ -20,6 +20,11 @@ class _MoodFormPageState extends State<MoodFormPage> {
   @override
   Widget build(BuildContext context) {
     var sizeHeight = MediaQuery.of(context).size.height;
+        final theme = Theme.of(context);
+    final oldCheckboxTheme = theme.checkboxTheme;
+    final newCheckBoxTheme = oldCheckboxTheme.copyWith(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    );
     return Scaffold(
       drawer: const NavBar(),
       appBar: AppBarCustom().backgroundOfAppbar("My mood "),
@@ -32,29 +37,44 @@ class _MoodFormPageState extends State<MoodFormPage> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal : sizeHeight/35, vertical: sizeHeight/15),
-            child: Container(
-              color: Colors.black12,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: answersConsummer.moodTypes.length,
-                  itemBuilder: ((context, index) {
-                  return CheckboxListTile( 
-                    title: Text(answersConsummer.moodTypes[index],),
-                    value: answersConsummer.boolAnswers[index], 
-                    onChanged: (value) {
-                      setState(() {
-                        answersConsummer.boolAnswers[index] = value!;
-                        if(answersConsummer.boolAnswers[index] == true) {
-                          context.read<AnswerProvider>().addMoodTypeChoosen(answersConsummer.moodTypes[index]);
-                        } 
-                        if(answersConsummer.boolAnswers[index] == false)  {
-                          context.read<AnswerProvider>().deleteMoodTypeChoosen(answersConsummer.moodTypes[index]);
-                        }
-                        
-                      });
-                    }, controlAffinity: ListTileControlAffinity.leading,);
-                })),
-        ),
+                child: ListView.builder(    
+                    shrinkWrap: true,
+                    itemCount: answersConsummer.moodTypes.length,
+                    itemBuilder: ((context, index) {
+                    return Theme(
+                      data: theme.copyWith(checkboxTheme: newCheckBoxTheme),
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: CheckboxListTile(    
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                                side: const BorderSide(color: Color.fromARGB(255, 5, 0, 2)),
+                              ),
+                            
+                            activeColor: Colors.green,
+                            checkColor: Colors.white,
+                            tileColor: Colors.indigo[400],
+                            selected: answersConsummer.boolAnswers[index],
+                            title: Text(answersConsummer.moodTypes[index], textAlign: TextAlign.center ),
+                            value: answersConsummer.boolAnswers[index], 
+                            onChanged: (value) {
+                              setState(() {
+                                answersConsummer.boolAnswers[index] = value!;
+                                if(answersConsummer.boolAnswers[index] == true) {
+                                  context.read<AnswerProvider>().addMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                                } 
+                                if(answersConsummer.boolAnswers[index] == false)  {
+                                  context.read<AnswerProvider>().deleteMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                                }
+                                
+                              });
+                            }, controlAffinity: ListTileControlAffinity.leading,),
+                        ),
+                      ),
+                    );
+                  })),
+             
           ),
           
           ElevatedButton(onPressed: () {
