@@ -19,6 +19,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    var myContext = context.watch<AnswerProvider>().myAnswerEntityProvider;
     var sizeHeight = MediaQuery.of(context).size.height;
         final theme = Theme.of(context);
     final oldCheckboxTheme = theme.checkboxTheme;
@@ -27,7 +28,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
     );
     return Scaffold(
       drawer: const NavBar(),
-      appBar: AppBarCustom().backgroundOfAppbar("My mood "),
+      appBar: AppBarCustom().backgroundOfAppbar("My mood ", ),
       body: Center(
         child: Column(
         children: <Widget>[
@@ -77,10 +78,29 @@ class _MoodFormPageState extends State<MoodFormPage> {
              
           ),
           
-          ElevatedButton(onPressed: () {
+          ElevatedButton(
+            onPressed: () {
+              if(myContext.moodTypeChoose == null || myContext.moodTypeChoose!.isEmpty) {
+                showDialog(context: context, builder: (context) => AlertDialog(
+                  title : Text("You have to choose one element minimum", textAlign: TextAlign.center,),
+                  actions: <Widget>[
+                    TextButton(onPressed: () {
+                      Navigator.of(context).pop();
+                    }, child : Text("Ok"),)
+                  ],
+                ), 
+                );
+              } else {
+                Navigator.pushReplacementNamed(context, '/WriteForm');
+              }
+
             
-            Navigator.pushReplacementNamed(context, '/WriteForm');
-          }, child: const Text("Ok")),
+          },
+           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.indigo,
+           ),
+           child: const Text("Ok")
+          ),
         ],
       )),
     );

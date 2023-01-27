@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const NavBar(),
-      appBar: AppBarCustom().backgroundOfAppbar("My mood "),
+      appBar: AppBarCustom().backgroundOfAppbar("My mood ", ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
