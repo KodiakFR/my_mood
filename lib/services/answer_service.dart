@@ -10,26 +10,15 @@ class AnswerService {
               await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).get();       
     answerEntity.dateTime = DateTime.now();
     try {
-        if(result.data()?["answer"] == null) {
+      if(result.data()?["answer"] == null) {
                 await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).set({"answer" : 
                 FieldValue.arrayUnion(
-                  [{
-                    'weatherMood' : answerEntity.weather,
-                    'moodType' :  answerEntity.moodTypeChoose,
-                    'writingMood' : answerEntity.writingMood,
-                    'date' : answerEntity.dateTime
-                  }])
+                  [answerEntity.toJson()])
         });
         } else {
-          print("dans le else");
-                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({ "answer" : FieldValue.arrayUnion(
-                      [{
-          'weatherMood' : answerEntity.weather,
-          'moodType' :  answerEntity.moodTypeChoose,
-          'writingMood' : answerEntity.writingMood,
-          'date' : answerEntity.dateTime
-        }]
-                    )});
+                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({ "answer" : 
+                    FieldValue.arrayUnion([answerEntity.toJson()]
+        )});
         }
     
     } catch(e) {
