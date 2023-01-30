@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_mood/screens/connection/connection.dart';
 import 'package:my_mood/screens/homepage/home_page.dart';
+import 'package:my_mood/screens/main_page/main_page.dart';
 import 'package:my_mood/screens/moodFormPage/mood_form_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_mood/screens/register/register.dart';
@@ -98,7 +99,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
-                  return const HomePage();
+                  return const MainPage();
                 }
                 return const Connection();
               }

@@ -11,12 +11,12 @@ class AnswerService {
     answerEntity.dateTime = DateTime.now();
     try {
       if(result.data()?["answer"] == null) {
-                await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).set({"answer" : 
+                await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).set({"answers" : 
                 FieldValue.arrayUnion(
                   [answerEntity.toJson()])
         });
         } else {
-                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({ "answer" : 
+                    await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).update({ "answers" : 
                     FieldValue.arrayUnion([answerEntity.toJson()]
         )});
         }

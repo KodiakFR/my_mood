@@ -23,7 +23,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
   Widget build(BuildContext context) {
     var myContext = context.watch<AnswerProvider>().myAnswerEntityProvider;
     var sizeHeight = MediaQuery.of(context).size.height;
-        final theme = Theme.of(context);
+    final theme = Theme.of(context);
     final oldCheckboxTheme = theme.checkboxTheme;
     final newCheckBoxTheme = oldCheckboxTheme.copyWith(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
