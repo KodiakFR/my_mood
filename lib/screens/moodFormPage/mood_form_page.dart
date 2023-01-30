@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/screens/widget/navbar.dart';
 import 'package:my_mood/services/providers/answer_provider.dart';
+import 'package:my_mood/viewModels/answer_list_vm.dart';
 import 'package:provider/provider.dart';
 
 import '../customs/app_bar_custom.dart';
@@ -16,6 +17,7 @@ class MoodFormPage extends StatefulWidget {
 class _MoodFormPageState extends State<MoodFormPage> {
 
   AnswerEntity answersConsummer = AnswerEntity();
+  AnswerListVM answerList = AnswerListVM();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class _MoodFormPageState extends State<MoodFormPage> {
             padding: EdgeInsets.symmetric(horizontal : sizeHeight/35, vertical: sizeHeight/15),
                 child: ListView.builder(    
                     shrinkWrap: true,
-                    itemCount: answersConsummer.moodTypes.length,
+                    itemCount: answerList.moodTypes.length,
                     itemBuilder: ((context, index) {
                     return Theme(
                       data: theme.copyWith(checkboxTheme: newCheckBoxTheme),
@@ -56,17 +58,17 @@ class _MoodFormPageState extends State<MoodFormPage> {
                             activeColor: Colors.green,
                             checkColor: Colors.white,
                             tileColor: Colors.indigo[400],
-                            selected: answersConsummer.boolAnswers[index],
-                            title: Text(answersConsummer.moodTypes[index], textAlign: TextAlign.center ),
-                            value: answersConsummer.boolAnswers[index], 
+                            selected: answerList.boolAnswers[index],
+                            title: Text(answerList.moodTypes[index], textAlign: TextAlign.center ),
+                            value: answerList.boolAnswers[index], 
                             onChanged: (value) {
                               setState(() {
-                                answersConsummer.boolAnswers[index] = value!;
-                                if(answersConsummer.boolAnswers[index] == true) {
-                                  context.read<AnswerProvider>().addMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                                answerList.boolAnswers[index] = value!;
+                                if(answerList.boolAnswers[index] == true) {
+                                  context.read<AnswerProvider>().addMoodTypeChoosen(answerList.moodTypes[index]);
                                 } 
-                                if(answersConsummer.boolAnswers[index] == false)  {
-                                  context.read<AnswerProvider>().deleteMoodTypeChoosen(answersConsummer.moodTypes[index]);
+                                if(answerList.boolAnswers[index] == false)  {
+                                  context.read<AnswerProvider>().deleteMoodTypeChoosen(answerList.moodTypes[index]);
                                 }
                                 
                               });

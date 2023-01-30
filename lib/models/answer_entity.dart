@@ -3,10 +3,9 @@ class AnswerEntity {
   List<String>? moodTypeChoose;
   String? writingMood;
   DateTime? dateTime;
-  List<String> moodTypes = ["Travail", "Amour", "Nouvelle", "Voyage", "autres"];
-  List<bool> boolAnswers = [false, false, false, false, false];
 
-  AnswerEntity({moodTypes, boolAnswers, this.writingMood, this.weather, this.moodTypeChoose, this.dateTime});
+
+  AnswerEntity({ this.writingMood, this.weather, this.moodTypeChoose, this.dateTime});
 
   AnswerEntity.fromJson(Map<String?, dynamic> json)  : 
     weather = json["weather"],
