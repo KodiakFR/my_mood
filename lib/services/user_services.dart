@@ -5,8 +5,9 @@ import 'package:my_mood/models/user_entity.dart';
 class UserServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+/// Stream pour garder la connection
   Stream<UserEntity> get userConnected {
-    return _auth
+       return _auth
         .authStateChanges()
         .asyncMap((user) => UserEntity(email: user!.email));
   }
