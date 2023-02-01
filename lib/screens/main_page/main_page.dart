@@ -5,7 +5,10 @@ import 'package:my_mood/screens/main_page/custom_main_page.dart';
 import '../widget/navbar.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
+  
+  DateTime dateStart = DateTime.now();
+  DateTime dateEnd = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,9 @@ class MainPage extends StatelessWidget {
             CustomMainPage().cardCustom("Je souhaite remplir mon questionnaire", Icon(Icons.dynamic_form), "Home", context ),
 
             CustomMainPage().cardCustom("Récapitulatif de ma synthèse", Icon(Icons.collections_bookmark), "Summarize", context ),
-               
+
+
+          
           ],
         ),
       ),
