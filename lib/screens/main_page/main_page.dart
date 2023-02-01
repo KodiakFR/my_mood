@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_mood/screens/customs/app_bar_custom.dart';
+import 'package:my_mood/screens/main_page/custom_main_page.dart';
 
 import '../widget/navbar.dart';
 
@@ -12,7 +13,7 @@ class MainPage extends StatelessWidget {
     return Container(
       decoration:  BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("lib/IMG/testfond2.png"),
+          image: AssetImage("lib/IMG/testfond3.png"),
           fit: BoxFit.fill
         ),
       ),
@@ -21,46 +22,13 @@ class MainPage extends StatelessWidget {
         drawer: const NavBar(),
         appBar: AppBarCustom().backgroundOfAppbar("Welcome"),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
-           SizedBox(
-            width: 500,
-            height: 100,
-             child: Card(
-              color: Colors.transparent,
-               shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Je remplis mon questionnaire: "),
-                    TextButton(onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/Home');
-                    }, child: Text("Je remplis ici"))
-                  ],
-                ),
-             ),
-           ),
+            CustomMainPage().cardCustom("Je souhaite remplir mon questionnaire", Icon(Icons.dynamic_form), "Home", context ),
 
-
-           SizedBox(
-            width: 500,
-            height: 100,
-             child: Card(
-              color: Colors.transparent,
-               shape: RoundedRectangleBorder(
-               borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Mes différentes synthèses: "),
-                    TextButton(onPressed: () {
-                      
-                    }, child: Text("Je remplis ici"))
-                  ],
-                ),
-             ),
-           ),
+            CustomMainPage().cardCustom("Récapitulatif de ma synthèse", Icon(Icons.collections_bookmark), "Summarize", context ),
+               
           ],
         ),
       ),

@@ -11,6 +11,7 @@ import 'package:my_mood/screens/main_page/main_page.dart';
 import 'package:my_mood/screens/moodFormPage/mood_form_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_mood/screens/register/register.dart';
+import 'package:my_mood/screens/summarize_answers/summarize_answers.dart';
 import 'package:my_mood/services/service_factory.dart';
 import 'package:my_mood/services/user_services.dart';
 import 'firebase_options.dart';
@@ -89,6 +90,8 @@ class MyApp extends StatelessWidget {
             "/Register": (context) => const Register(),
             "/Connection": (context) => const Connection(),
             "/Home": (context) => const HomePage(),
+            "/Summarize" : (context) => SummarizeAnswers(),
+
           },
           title: 'My Mood',
           theme: ThemeData(

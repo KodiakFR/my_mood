@@ -1,6 +1,6 @@
 class AnswerEntity {
   String? weather;
-  List<String>? moodTypeChoose;
+  List<dynamic>? moodTypeChoose;
   String? writingMood;
   DateTime? dateTime;
 
@@ -11,7 +11,7 @@ class AnswerEntity {
     weather = json["weather"],
     writingMood = json["writingMood"],
     moodTypeChoose = json["moodTypeChoose"],
-    dateTime = json["dateTime"];
+    dateTime = json["dateTime"].toDate();
 
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data = new Map<String, dynamic>();
