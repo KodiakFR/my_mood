@@ -17,6 +17,9 @@ class SummarizeAnswers extends StatefulWidget {
   DateTime dateEnd = DateTime.now();
 
 class _SummarizeAnswersState extends State<SummarizeAnswers> {
+
+List<AnswerEntity> value = [];
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -47,7 +50,8 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                       lastDate: DateTime(2100)
                       );
                       if(newDateStart == null) return;
-                      dateStart = newDateStart;
+                      dateStart = DateTime(newDateStart.year,newDateStart.month,newDateStart.day, DateTime.now().hour, DateTime.now().minute);                  
+                      //dateStart = newDateStart;
                       print(dateStart);
                   }, child : Text("Date de début")),
 
@@ -55,21 +59,47 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                     DateTime? newDateEnd = await showDatePicker(
                      // locale : const Locale("fr", "FR"),
                       context: context,
-                      initialDate: dateStart, 
+                      initialDate: dateEnd, 
                       firstDate: DateTime(2000), 
                       lastDate: DateTime(2100)
                       );
                       if(newDateEnd == null) return;
-                      dateStart = newDateEnd;
+                      dateEnd = DateTime(newDateEnd.year,newDateEnd.month,newDateEnd.day, DateTime.now().hour, DateTime.now().minute);
+                      //dateEnd = newDateEnd;
                       print(dateEnd);
                   }, child : Text("Date de fin"))
               ],
             ),
 
             TextButton(onPressed: () async{
-              List<AnswerEntity> value = await AnswerService().getByDate(dateStart, dateEnd);
+              if(dateStart == dateEnd) {
+                showDialog(context: context, builder: (context) => 
+                  AlertDialog(
+                    title : Text("You can't choose two identicals date.",  textAlign: TextAlign.center),
+                    actions: <Widget>[
+                    TextButton(onPressed: () {
+                      Navigator.of(context).pop();
+                    }, child : Text("Ok"),)
+                  ],
+                  )
+                );
+              }
+              value = await AnswerService().getByDate(dateStart, dateEnd);
+              
               print(value.length);
-            }, child: Text("Je récupère"))
+            }, child: Text("Je récupère")),
+
+
+
+
+            // ListView.builder(
+            //   itemCount: 3,
+            //   itemBuilder: ((BuildContext context, index) {
+            //     return ListTile(
+            //       leading : Text(value[index].weather.toString())
+            //     );
+            //   })
+            //   )
 
 
                       ],

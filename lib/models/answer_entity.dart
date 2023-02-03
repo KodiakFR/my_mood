@@ -20,17 +20,15 @@ class AnswerEntity {
     data["moodTypeChoose"] = moodTypeChoose;
     data["dateTime"] = dateTime;
     return data;
-
   }
 
+     toJsonBis() => {
+    "weather" : weather,
+    "writingMood" : writingMood,
+    "moodTypeChoose" : moodTypeChoose,
+    "dateTime" : dateTime,
+  };
 
-  //  Map<String,dynamic> toJson()
-  //  {
-  //    final Map<String, dynamic> data = new Map<String, dynamic>();
-  //    data["name"] = name;
-  //    data["iconImport"] = iconImport;
-  //    data["isSelected"] = isSelected;
-  //    return data;
-  //  }
+
 
 }
