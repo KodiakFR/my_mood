@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/services/answer_service.dart';
+import 'package:my_mood/services/providers/result_by_date_provider.dart';
+import 'package:provider/provider.dart';
 
 class SummarizeAnswers extends StatefulWidget {
   SummarizeAnswers({Key? key}) : super(key: key);
@@ -15,13 +17,13 @@ class SummarizeAnswers extends StatefulWidget {
   
   DateTime dateStart = DateTime.now();
   DateTime dateEnd = DateTime.now();
+  List<AnswerEntity> values = [];
+
 
 class _SummarizeAnswersState extends State<SummarizeAnswers> {
-
-List<AnswerEntity> value = [];
-
   @override
   Widget build(BuildContext context) {
+    context.watch<ResultByDateProvider>().myanswers;
     return FutureBuilder(
       future: AnswerService().getSummarizeAnswer,
       builder: (context, snapshot) {
@@ -84,22 +86,27 @@ List<AnswerEntity> value = [];
                   )
                 );
               }
-              value = await AnswerService().getByDate(dateStart, dateEnd);
-              
-              print(value.length);
+             values = await AnswerService().getByDate(dateStart, dateEnd);
+             context.read<ResultByDateProvider>().addAnswers(values);             
             }, child: Text("Je récupère")),
 
 
-
-
-            // ListView.builder(
-            //   itemCount: 3,
-            //   itemBuilder: ((BuildContext context, index) {
-            //     return ListTile(
-            //       leading : Text(value[index].weather.toString())
-            //     );
-            //   })
-            //   )
+            if(values.isNotEmpty)...[
+              Container(
+                child:  ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: values.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading : Text(values[index].weather.toString()),
+                  subtitle: Text(values[index].moodTypeChoose.toString()),
+                );
+              })
+              )
+              
+             
+            ]    
 
 
                       ],

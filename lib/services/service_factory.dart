@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_mood/services/providers/answer_provider.dart';
+import 'package:my_mood/services/providers/result_by_date_provider.dart';
 import 'package:provider/provider.dart';
 
 class ServiceFactory extends StatelessWidget {
@@ -15,8 +16,8 @@ class ServiceFactory extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AnswerProvider()
-        ),
+        ChangeNotifierProvider(create: (_) => AnswerProvider()),
+        ChangeNotifierProvider(create: (_) => ResultByDateProvider())
       ],
       child: child,
     );
