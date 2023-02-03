@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:my_mood/models/user_entity.dart';
 import 'package:my_mood/viewModels/connection_vm.dart';
 
-  // Key for the form
-  final _formKey = GlobalKey<FormState>();
-  //Regex for the email
-  final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
-  //Variable for the form
-  String? _email;
-  String? _password;
-  final ConnectionVM _connectionVM = ConnectionVM();
+// Key for the form
+final _formKey = GlobalKey<FormState>();
+//Regex for the email
+final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
+//Variable for the form
+String? _email;
+String? _password;
+final ConnectionVM _connectionVM = ConnectionVM();
 
 class Connection extends StatelessWidget {
-const Connection({super.key});
+  const Connection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ const Connection({super.key});
                         //connexion avec email + mot de passe
                         dynamic result = await _connectionVM.auth(user);
                         if (result != null) {
-                          Navigator.pushReplacementNamed(context, "/Home");
+                          Navigator.pushReplacementNamed(context, "/MainPage");
                           //si le UID n'existe pas en base créer un espace pour la personne.
                         } else {
                           // popup si la connexion ne se fait pas
@@ -100,7 +100,7 @@ const Connection({super.key});
                     _connectionVM.authWithGmail().then(
                       (value) {
                         if (value.user!.uid.isNotEmpty) {
-                          Navigator.pushReplacementNamed(context, "/Home");
+                          Navigator.pushReplacementNamed(context, "/MainPage");
                         } else {
                           showDialog<String>(
                             context: context,

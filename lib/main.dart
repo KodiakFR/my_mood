@@ -63,6 +63,7 @@ void main() async {
 }
 
 final UserServices _userService = UserServices();
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MyApp extends StatelessWidget {
   final FirebaseAuth firebaseAuth;
@@ -90,12 +91,12 @@ class MyApp extends StatelessWidget {
             "/Register": (context) => const Register(),
             "/Connection": (context) => const Connection(),
             "/Home": (context) => const HomePage(),
-            "/Summarize" : (context) => SummarizeAnswers(),
-
+            "/Summarize": (context) => SummarizeAnswers(),
+            "/MainPage" :(context) => MainPage(),
           },
           title: 'My Mood',
           theme: ThemeData(
-            primarySwatch: Colors.blue,             
+            primarySwatch: Colors.blue,
           ),
           home: StreamBuilder(
             stream: _userService.userConnected,
