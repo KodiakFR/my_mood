@@ -62,9 +62,8 @@ class WritingFormPage extends StatelessWidget {
               else {
                 // Add nextpath
               AnswerService().addAnswerFromUser(myContext);
-                
-                print("validé");
               }
+              Navigator.pushReplacementNamed(context, '/MainPage');
           }, 
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.indigo,

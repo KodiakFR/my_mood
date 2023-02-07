@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
             "/Connection": (context) => const Connection(),
             "/Home": (context) => const HomePage(),
             "/Summarize": (context) => SummarizeAnswers(),
-            "/MainPage" :(context) => MainPage(),
+            "/MainPage" : (context) => MainPage(),
           },
           title: 'My Mood',
           theme: ThemeData(
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
               return const Scaffold(
                   body: SafeArea(
                       child: Center(
-                child: Text('Loadiing...'),
+                child: Text('Loading...'),
               )));
             },
           )),

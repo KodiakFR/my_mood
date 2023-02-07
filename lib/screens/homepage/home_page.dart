@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
           children: [
            const Text('Clique sur la méteo qui correspond à ton humeur d\'aujourd\'hui ? ', textAlign: TextAlign.center,),
            ElevatedButtonHomePage(urlImage: 'lib/IMG/sun.png', weatherF: "Good mood"),
-           ElevatedButtonHomePage(urlImage: 'lib/IMG/cloudy.png', weatherF: "average mood",),
-           ElevatedButtonHomePage(urlImage: 'lib/IMG/rainning.png', weatherF: "sad mood",),
+           ElevatedButtonHomePage(urlImage: 'lib/IMG/cloudy.png', weatherF: "Average mood",),
+           ElevatedButtonHomePage(urlImage: 'lib/IMG/rainning.png', weatherF: "Sad mood",),
           ],
         ),
       ),
