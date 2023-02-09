@@ -23,7 +23,7 @@ DateTime dateEnd = DateTime.now();
 List<AnswerEntity> values = [];
 List<DataStats> valuesStats = [];
 List<DataStats> secondeValuesStats = [];
-
+List<DataStats> thirdValue = [];
 
 class _SummarizeAnswersState extends State<SummarizeAnswers> {
   @override
@@ -44,116 +44,178 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
               body: SingleChildScrollView(
                   child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () async {
-                          newDateStart = await showDatePicker(
-                              context: context,
-                              initialDate: dateStart,
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100));
-                          if (newDateStart == null) return;
-                          dateStart = DateTime(
-                              newDateStart!.year,
-                              newDateStart!.month,
-                              newDateStart!.day,
-                              DateTime.now().hour,
-                              DateTime.now().minute);
-                          //dateStart = newDateStart;
-                          print(dateStart);
-                        },
-                        child: Text("Date de début"),
-                      ),
-                      TextButton(
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.symmetric(horizontal: BorderSide()),
+                        color: Colors.grey[200]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
                           onPressed: () async {
-                            DateTime? newDateEnd = await showDatePicker(
-                                // locale : const Locale("fr", "FR"),
+                            newDateStart = await showDatePicker(
                                 context: context,
-                                initialDate: dateEnd,
+                                initialDate: dateStart,
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2100));
-                            if (newDateEnd == null) return;
-                            dateEnd = DateTime(
-                                newDateEnd.year,
-                                newDateEnd.month,
-                                newDateEnd.day,
+                            if (newDateStart == null) return;
+                            dateStart = DateTime(
+                                newDateStart!.year,
+                                newDateStart!.month,
+                                newDateStart!.day,
                                 DateTime.now().hour,
                                 DateTime.now().minute);
-                            //dateEnd = newDateEnd;
-                            print(dateEnd);
+                            //dateStart = newDateStart;
+                            print(dateStart);
                           },
-                          child: Text("Date de fin"))
-                    ],
-                  ),
-                  TextButton(
-                      onPressed: () async {
-                        if (dateStart == dateEnd) {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    title: Text(
-                                        "You can't choose two identicals date.",
-                                        textAlign: TextAlign.center),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text("Ok"),
-                                      )
-                                    ],
-                                  ));
-                        }
-                        values =
-                            await AnswerService().getByDate(dateStart, dateEnd);
-                        context.read<ResultByDateProvider>().addAnswers(values);
+                          child: Text("Date de début",
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                        Text(" - "),
+                        TextButton(
+                            onPressed: () async {
+                              DateTime? newDateEnd = await showDatePicker(
+                                  // locale : const Locale("fr", "FR"),
+                                  context: context,
+                                  initialDate: dateEnd,
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100));
+                              if (newDateEnd == null) return;
+                              dateEnd = DateTime(
+                                  newDateEnd.year,
+                                  newDateEnd.month,
+                                  newDateEnd.day,
+                                  DateTime.now().hour,
+                                  DateTime.now().minute);
+                              //dateEnd = newDateEnd;
+                              print(dateEnd);
+                            },
+                            child: Text("Date de fin",
+                                style: TextStyle(color: Colors.black))),
+                        SizedBox(width : 80),
+                        TextButton(
+                            onPressed: () async {
+                              if (dateStart == dateEnd) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text(
+                                              "You can't choose two identicals date.",
+                                              textAlign: TextAlign.center),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text("Ok"),
+                                            )
+                                          ],
+                                        ));
+                              }
+                              values = await AnswerService()
+                                  .getByDate(dateStart, dateEnd);
+                              context
+                                  .read<ResultByDateProvider>()
+                                  .addAnswers(values);
 
-                        // Input differents rules to use graph :
-                        valuesStats =
-                            DataStatsRules().PieChartByWeatherMood(values);
-                        secondeValuesStats =
-                            DataStatsRules().graphChartByMoodType(values);
-                      },
-                      child: Text("Je récupère")),
+                              // Input differents rules to use graph :
+                              valuesStats = DataStatsRules()
+                                  .PieChartByWeatherMood(values);
+                              secondeValuesStats =
+                                  DataStatsRules().graphChartByMoodType(values);
+                            },
+                            child: Icon(Icons.search, color: Colors.black,))
+                      ]
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   if (values.isNotEmpty) ...[
                     Container(
-                      child: SfCircularChart(
-                        title: ChartTitle(
-                            text: "Mood weather from your time choosen"),
-                        legend: Legend(isVisible: true),
-                        series: <CircularSeries>[
-                          DoughnutSeries<DataStats, String>(
-                            dataSource: valuesStats,
-                            xValueMapper: (DataStats ds, _) => ds.moodWeather,
-                            yValueMapper: (DataStats ds, _) => ds.totalWeather,
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: true),
-                          )
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        children: [
+                          SfCircularChart(
+                            title: ChartTitle(
+                                text: "Mood weather from your time choosen"),
+                            legend: Legend(isVisible: true),
+                            series: <CircularSeries>[
+                              DoughnutSeries<DataStats, String>(
+                                dataSource: valuesStats,
+                                xValueMapper: (DataStats ds, _) =>
+                                    ds.moodWeather,
+                                yValueMapper: (DataStats ds, _) =>
+                                    ds.totalWeather,
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: true),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          if (valuesStats
+                                  .reduce((a, b) =>
+                                      a.totalWeather! > b.totalWeather! ? a : b)
+                                  .moodWeather ==
+                              "Good mood")
+                            Text("Text description for good mood"),
+                          if (valuesStats
+                                  .reduce((a, b) =>
+                                      a.totalWeather! > b.totalWeather! ? a : b)
+                                  .moodWeather ==
+                              "Average mood")
+                            Text("Text description for average mood"),
+                          if (valuesStats
+                                  .reduce((a, b) =>
+                                      a.totalWeather! > b.totalWeather! ? a : b)
+                                  .moodWeather ==
+                              "Sad mood")
+                            Text("Text description for sad mood"),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
 
-                    Container(
-                      child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        // Need to create a count of the biggest value of totalMoodType
-                        primaryYAxis:
-                            NumericAxis(minimum: 0, maximum: 5, interval: 5),
-                        title: ChartTitle(
-                            text: "Number of moodtype selected"),
-                        legend: Legend(isVisible: true),
-                        series: <ChartSeries>[
-                          ColumnSeries<DataStats, String>(
-                            dataSource: secondeValuesStats,
-                            xValueMapper: (DataStats ds, _) => ds.moodType,
-                            yValueMapper: (DataStats ds, _) => ds.totalMoodType,
-                            dataLabelSettings: DataLabelSettings(isVisible: true),
-                          )
-                        ],
-                      ),
+                    //  SizedBox(height: 10,child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide()),))),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: SfCartesianChart(
+                            primaryXAxis: CategoryAxis(),
+                            primaryYAxis: NumericAxis(
+                                minimum: 0,
+                                maximum: secondeValuesStats
+                                    .reduce((a, b) =>
+                                        a.totalMoodType! > b.totalMoodType!
+                                            ? a
+                                            : b)
+                                    .totalMoodType!
+                                    .toDouble(),
+                                interval: 5),
+                            title:
+                                ChartTitle(text: "Number of moodtype selected"),
+                            //legend: Legend(isVisible: true),
+                            series: <ChartSeries>[
+                              ColumnSeries<DataStats, String>(
+                                dataSource: secondeValuesStats,
+                                xValueMapper: (DataStats ds, _) => ds.moodType,
+                                yValueMapper: (DataStats ds, _) =>
+                                    ds.totalMoodType,
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: true),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ],
