@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_mood/models/answer_entity.dart';
 import 'package:my_mood/models/data_stats.dart';
 import 'package:my_mood/services/answer_service.dart';
+import 'package:my_mood/services/providers/date_end_provider.dart';
+import 'package:my_mood/services/providers/date_start_provider.dart';
 import 'package:my_mood/services/providers/result_by_date_provider.dart';
 import 'package:my_mood/services/rules/data_stats_rules.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +20,6 @@ class SummarizeAnswers extends StatefulWidget {
   State<SummarizeAnswers> createState() => _SummarizeAnswersState();
 }
 
-DateTime? newDateStart;
 DateTime dateStart = DateTime.now();
 DateTime dateEnd = DateTime.now();
 List<AnswerEntity> values = [];
@@ -26,8 +28,13 @@ List<DataStats> secondeValuesStats = [];
 List<DataStats> thirdValue = [];
 
 class _SummarizeAnswersState extends State<SummarizeAnswers> {
+
+  
+
   @override
   Widget build(BuildContext context) {
+    var dateEShow = context.watch<DateEndProvider>().myDateEnd;
+    var dateSShow  = context.watch<DateStartProvider>().myDateStart;
     context.watch<ResultByDateProvider>().myanswers;
     return FutureBuilder(
         future: AnswerService().getSummarizeAnswer,
@@ -53,23 +60,29 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                       children: [
                         TextButton(
                           onPressed: () async {
-                            newDateStart = await showDatePicker(
+                          DateTime? newDateStart = await showDatePicker(
                                 context: context,
                                 initialDate: dateStart,
                                 firstDate: DateTime(2000),
                                 lastDate: DateTime(2100));
                             if (newDateStart == null) return;
                             dateStart = DateTime(
-                                newDateStart!.year,
-                                newDateStart!.month,
-                                newDateStart!.day,
+                                newDateStart.year,
+                                newDateStart.month,
+                                newDateStart.day,
                                 DateTime.now().hour,
                                 DateTime.now().minute);
+                              context.read<DateStartProvider>().addDateStart(dateStart);
+                              setState(() {
+                                dateStart = newDateStart;
+                              });
                             //dateStart = newDateStart;
                             print(dateStart);
                           },
-                          child: Text("Date de début",
-                              style: TextStyle(color: Colors.black)),
+                          
+                          child:  dateSShow == null ? 
+                            Text("Date de début", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateSShow!)}",style: TextStyle(color: Colors.black)),                      
+                              
                         ),
                         Text(" - "),
                         TextButton(
@@ -87,11 +100,13 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                                   newDateEnd.day,
                                   DateTime.now().hour,
                                   DateTime.now().minute);
-                              //dateEnd = newDateEnd;
+                              context.read<DateEndProvider>().addDateEnd(dateEnd);
                               print(dateEnd);
                             },
-                            child: Text("Date de fin",
-                                style: TextStyle(color: Colors.black))),
+                            child: dateEShow == null ? 
+                            Text("Date de fin", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateEShow!)}",style: TextStyle(color: Colors.black)),                      
+                            ),
+
                         SizedBox(width : 80),
                         TextButton(
                             onPressed: () async {
@@ -120,7 +135,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
 
                               // Input differents rules to use graph :
                               valuesStats = DataStatsRules()
-                                  .PieChartByWeatherMood(values);
+                                  .pieChartByWeatherMood(values);
                               secondeValuesStats =
                                   DataStatsRules().graphChartByMoodType(values);
                             },
@@ -134,8 +149,10 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                   if (values.isNotEmpty) ...[
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                        border: Border.all(width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color : Colors.grey[200]
+                      ),
                       child: Column(
                         children: [
                           SfCircularChart(
@@ -173,6 +190,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                                   .moodWeather ==
                               "Sad mood")
                             Text("Text description for sad mood"),
+
                         ],
                       ),
                     ),
@@ -187,7 +205,9 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                           decoration: BoxDecoration(
                               border: Border.all(width: 2),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15))),
+                                  BorderRadius.all(Radius.circular(15)),
+                              color: Colors.grey[200]
+                          ),
                           child: SfCartesianChart(
                             primaryXAxis: CategoryAxis(),
                             primaryYAxis: NumericAxis(
