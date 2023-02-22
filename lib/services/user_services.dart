@@ -5,9 +5,9 @@ import 'package:my_mood/models/user_entity.dart';
 class UserServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-/// Stream pour garder la connection
+  /// Stream pour garder la connection
   Stream<UserEntity> get userConnected {
-       return _auth
+    return _auth
         .authStateChanges()
         .asyncMap((user) => UserEntity(email: user!.email));
   }
@@ -42,13 +42,17 @@ class UserServices {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  Future createUser(UserEntity user) async {
+  Future createUser(UserEntity userEntity) async {
     try {
       final UserCredential credential =
           await _auth.createUserWithEmailAndPassword(
-        email: user.email!,
-        password: user.password!,
+        email: userEntity.email!,
+        password: userEntity.password!,
       );
+      User? user = credential.user;
+      user?.updateDisplayName(userEntity.name);
+      user?.updatePhotoURL(
+          'https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small/profile-icon-design-free-vector.jpg');
       return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
