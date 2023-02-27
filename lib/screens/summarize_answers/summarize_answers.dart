@@ -13,6 +13,8 @@ import 'package:my_mood/services/rules/data_stats_rules.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../widget/navbar.dart';
+
 class SummarizeAnswers extends StatefulWidget {
   SummarizeAnswers({Key? key}) : super(key: key);
 
@@ -47,13 +49,14 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
           } else {
             var value = snapshot.data!;
             return Scaffold(
+              drawer: const NavBar(),
               appBar: AppBar(),
               body: SingleChildScrollView(
-                  child: Column(
+                child: Column(
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        border: Border.symmetric(horizontal: BorderSide()),
+                        border: const Border.symmetric(horizontal: BorderSide()),
                         color: Colors.grey[200]),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -81,7 +84,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                           },
                           
                           child:  dateSShow == null ? 
-                            Text("Date de début", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateSShow!)}",style: TextStyle(color: Colors.black)),                      
+                            Text("Date de début", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateSShow)}",style: TextStyle(color: Colors.black)),                      
                               
                         ),
                         Text(" - "),
@@ -132,14 +135,13 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                               context
                                   .read<ResultByDateProvider>()
                                   .addAnswers(values);
-
                               // Input differents rules to use graph :
                               valuesStats = DataStatsRules()
                                   .pieChartByWeatherMood(values);
                               secondeValuesStats =
                                   DataStatsRules().graphChartByMoodType(values);
                             },
-                            child: Icon(Icons.search, color: Colors.black,))
+                            child: const Icon(Icons.search, color: Colors.black,))
                       ]
                     ),
                   ),

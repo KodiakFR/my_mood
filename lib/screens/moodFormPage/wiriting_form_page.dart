@@ -50,7 +50,7 @@ class WritingFormPage extends StatelessWidget {
           context.read<AnswerProvider>().addWritingMood(answerMoodController.text);
           if(myContext.writingMood == null || myContext.writingMood!.isEmpty) {
                 showDialog(context: context, builder: (context) => AlertDialog(
-                  title : Text("You have to write an element to validate", textAlign: TextAlign.center,),
+                  title : const Text("You have to write an element to validate", textAlign: TextAlign.center,),
                   actions: <Widget>[
                     TextButton(onPressed: () async{
                       Navigator.of(context).pop();

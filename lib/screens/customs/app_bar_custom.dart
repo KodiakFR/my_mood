@@ -7,7 +7,7 @@ class AppBarCustom {
        centerTitle: true,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             gradient: LinearGradient(
               begin : Alignment.topRight,
