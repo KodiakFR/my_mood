@@ -14,13 +14,11 @@ class NavBar extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('Maxime'),
+            accountName: Text(_auth.currentUser!.displayName!),
             accountEmail: Text(_auth.currentUser!.email!),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.network(
-                  'https://avatars.githubusercontent.com/u/85800785?v=4',
-                ),
+                child: Image.network(_auth.currentUser!.photoURL!),
               ),
             ),
             decoration: const BoxDecoration(
@@ -35,7 +33,7 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.home),
             title: const Text('Page d\'accueil'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/MainPage');
             },
           ),
           ListTile(

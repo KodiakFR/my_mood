@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_mood/models/answer_entity.dart';
@@ -87,7 +84,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                             Text("Date de début", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateSShow)}",style: TextStyle(color: Colors.black)),                      
                               
                         ),
-                        Text(" - "),
+                        const Text(" - "),
                         TextButton(
                             onPressed: () async {
                               DateTime? newDateEnd = await showDatePicker(
@@ -107,17 +104,17 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                               print(dateEnd);
                             },
                             child: dateEShow == null ? 
-                            Text("Date de fin", style: TextStyle(color: Colors.black)) : Text("${DateFormat.yMMMd().format(dateEShow!)}",style: TextStyle(color: Colors.black)),                      
+                            const Text("Date de fin", style: TextStyle(color: Colors.black)) : Text(DateFormat.yMMMd().format(dateEShow),style: const TextStyle(color: Colors.black)),                      
                             ),
 
-                        SizedBox(width : 80),
+                        const SizedBox(width : 80),
                         TextButton(
                             onPressed: () async {
                               if (dateStart == dateEnd) {
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                          title: Text(
+                                          title: const Text(
                                               "You can't choose two identicals date.",
                                               textAlign: TextAlign.center),
                                           actions: <Widget>[
@@ -125,7 +122,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Text("Ok"),
+                                              child: const Text("Ok"),
                                             )
                                           ],
                                         ));
@@ -145,14 +142,14 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                       ]
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   if (values.isNotEmpty) ...[
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
                         color : Colors.grey[200]
                       ),
                       child: Column(
@@ -169,36 +166,36 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                                 yValueMapper: (DataStats ds, _) =>
                                     ds.totalWeather,
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: true),
+                                    const DataLabelSettings(isVisible: true),
                               )
                             ],
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           if (valuesStats
                                   .reduce((a, b) =>
                                       a.totalWeather! > b.totalWeather! ? a : b)
                                   .moodWeather ==
                               "Good mood")
-                            Text("Text description for good mood"),
+                            const Text("Text description for good mood"),
                           if (valuesStats
                                   .reduce((a, b) =>
                                       a.totalWeather! > b.totalWeather! ? a : b)
                                   .moodWeather ==
                               "Average mood")
-                            Text("Text description for average mood"),
+                            const Text("Text description for average mood"),
                           if (valuesStats
                                   .reduce((a, b) =>
                                       a.totalWeather! > b.totalWeather! ? a : b)
                                   .moodWeather ==
                               "Sad mood")
-                            Text("Text description for sad mood"),
+                            const Text("Text description for sad mood"),
 
                         ],
                       ),
                     ),
 
                     //  SizedBox(height: 10,child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide()),))),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Column(
@@ -207,7 +204,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                           decoration: BoxDecoration(
                               border: Border.all(width: 2),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
+                                  const BorderRadius.all(Radius.circular(15)),
                               color: Colors.grey[200]
                           ),
                           child: SfCartesianChart(
@@ -232,7 +229,7 @@ class _SummarizeAnswersState extends State<SummarizeAnswers> {
                                 yValueMapper: (DataStats ds, _) =>
                                     ds.totalMoodType,
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: true),
+                                    const DataLabelSettings(isVisible: true),
                               )
                             ],
                           ),

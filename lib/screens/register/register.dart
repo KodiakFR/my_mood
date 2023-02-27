@@ -10,6 +10,7 @@ final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
 //Variable for the form
 String? _email;
 String? _password;
+String? _name;
 RegisterVM registerVM = RegisterVM();
 
 class Register extends StatelessWidget {
@@ -29,6 +30,18 @@ class Register extends StatelessWidget {
                 children: [
                   Text("Register",
                       style: Theme.of(context).textTheme.headline4),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty || value.length < 3) {
+                        return 'Please enter a name with min 2 characters';
+                      }
+                      _name = value;
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                        hintText: 'Enter your name', labelText: 'Name'),
+                  ),
                   TextFormField(
                     validator: (value) {
                       if (value == null ||
@@ -75,8 +88,8 @@ class Register extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        UserEntity user =
-                            UserEntity(email: _email, password: _password);
+                        UserEntity user = UserEntity(
+                            name: _name, email: _email, password: _password);
                         dynamic result = await registerVM.createUser(user);
                         if (result is UserCredential) {
                           Navigator.pop(context);
