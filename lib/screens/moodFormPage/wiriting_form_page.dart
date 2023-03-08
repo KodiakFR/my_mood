@@ -30,7 +30,7 @@ class WritingFormPage extends StatelessWidget {
       body: Center(child: Column(children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: sizeHeigth/15),
-          child: Text("Ecris quelques lignes sur ton humeur d'aujourd'hui"),
+          child: const Text("Ecris quelques lignes sur ton humeur d'aujourd'hui"),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: sizeWidth/30),
@@ -54,7 +54,7 @@ class WritingFormPage extends StatelessWidget {
                   actions: <Widget>[
                     TextButton(onPressed: () async{
                       Navigator.of(context).pop();
-                    }, child : Text("Ok"),)
+                    }, child : const Text("Ok"),)
                   ],
                 ), 
                 );

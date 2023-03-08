@@ -46,34 +46,32 @@ class _MoodFormPageState extends State<MoodFormPage> {
                     itemBuilder: ((context, index) {
                     return Theme(
                       data: theme.copyWith(checkboxTheme: newCheckBoxTheme),
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: CheckboxListTile(    
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                                side: const BorderSide(color: Color.fromARGB(255, 5, 0, 2)),
-                              ),
-                            
-                            activeColor: Colors.green,
-                            checkColor: Colors.white,
-                            tileColor: Colors.indigo[400],
-                            selected: answerList.boolAnswers[index],
-                            title: Text(answerList.moodTypes[index], textAlign: TextAlign.center ),
-                            value: answerList.boolAnswers[index], 
-                            onChanged: (value) {
-                              setState(() {
-                                answerList.boolAnswers[index] = value!;
-                                if(answerList.boolAnswers[index] == true) {
-                                  context.read<AnswerProvider>().addMoodTypeChoosen(answerList.moodTypes[index]);
-                                } 
-                                if(answerList.boolAnswers[index] == false)  {
-                                  context.read<AnswerProvider>().deleteMoodTypeChoosen(answerList.moodTypes[index]);
-                                }
-                                
-                              });
-                            }, controlAffinity: ListTileControlAffinity.leading,),
-                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CheckboxListTile(    
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                              side: const BorderSide(color: Color.fromARGB(255, 5, 0, 2)),
+                            ),
+                          
+                          activeColor: Colors.green,
+                          checkColor: Colors.white,
+                          tileColor: Colors.indigo[400],
+                          selected: answerList.boolAnswers[index],
+                          title: Text(answerList.moodTypes[index], textAlign: TextAlign.center ),
+                          value: answerList.boolAnswers[index], 
+                          onChanged: (value) {
+                            setState(() {
+                              answerList.boolAnswers[index] = value!;
+                              if(answerList.boolAnswers[index] == true) {
+                                context.read<AnswerProvider>().addMoodTypeChoosen(answerList.moodTypes[index]);
+                              } 
+                              if(answerList.boolAnswers[index] == false)  {
+                                context.read<AnswerProvider>().deleteMoodTypeChoosen(answerList.moodTypes[index]);
+                              }
+                              
+                            });
+                          }, controlAffinity: ListTileControlAffinity.leading,),
                       ),
                     );
                   })),
@@ -84,11 +82,11 @@ class _MoodFormPageState extends State<MoodFormPage> {
             onPressed: () {
               if(myContext.moodTypeChoose == null || myContext.moodTypeChoose!.isEmpty) {
                 showDialog(context: context, builder: (context) => AlertDialog(
-                  title : Text("You have to choose one element minimum", textAlign: TextAlign.center,),
+                  title : const Text("You have to choose one element minimum", textAlign: TextAlign.center,),
                   actions: <Widget>[
                     TextButton(onPressed: () {
                       Navigator.of(context).pop();
-                    }, child : Text("Ok"),)
+                    }, child : const Text("Ok"),)
                   ],
                 ), 
                 );
